@@ -1,0 +1,659 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youban.ssm.mapper.GGoodsMapper">
+  <resultMap id="BaseResultMap" type="com.youban.ssm.pojo.GGoods">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="oc_id" jdbcType="BIGINT" property="ocId" />
+    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="channel_id" jdbcType="INTEGER" property="channelId" />
+    <result column="channel_type" jdbcType="TINYINT" property="channelType" />
+    <result column="bizcode" jdbcType="VARCHAR" property="bizcode" />
+    <result column="goodsno" jdbcType="VARCHAR" property="goodsno" />
+    <result column="goodssummary" jdbcType="VARCHAR" property="goodssummary" />
+    <result column="goodsname" jdbcType="VARCHAR" property="goodsname" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="salenum" jdbcType="INTEGER" property="salenum" />
+    <result column="listprice" jdbcType="INTEGER" property="listprice" />
+    <result column="saleprice" jdbcType="INTEGER" property="saleprice" />
+    <result column="goodstypecode" jdbcType="VARCHAR" property="goodstypecode" />
+    <result column="validitytype" jdbcType="TINYINT" property="validitytype" />
+    <result column="cover" jdbcType="VARCHAR" property="cover" />
+    <result column="abberviation" jdbcType="VARCHAR" property="abberviation" />
+    <result column="intime" jdbcType="INTEGER" property="intime" />
+    <result column="uptime" jdbcType="INTEGER" property="uptime" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="is_active" jdbcType="BIT" property="isActive" />
+    <result column="is_sue" jdbcType="TINYINT" property="isSue" />
+    <result column="is_show_discount" jdbcType="TINYINT" property="isShowDiscount" />
+    <result column="remark1" jdbcType="VARCHAR" property="remark1" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.youban.ssm.pojo.GGoodsWithBLOBs">
+    <result column="bookingnotice" jdbcType="LONGVARCHAR" property="bookingnotice" />
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, oc_id, category_id, channel_id, channel_type, bizcode, goodsno, goodssummary, 
+    goodsname, title, num, salenum, listprice, saleprice, goodstypecode, validitytype, 
+    cover, abberviation, intime, uptime, sort, status, is_active, is_sue, is_show_discount, 
+    remark1
+  </sql>
+  <sql id="Blob_Column_List">
+    bookingnotice, description
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.youban.ssm.pojo.GGoodsExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from g_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.youban.ssm.pojo.GGoodsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from g_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from g_goods
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from g_goods
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.youban.ssm.pojo.GGoodsExample">
+    delete from g_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.youban.ssm.pojo.GGoodsWithBLOBs">
+    insert into g_goods (id, oc_id, category_id, 
+      channel_id, channel_type, bizcode, 
+      goodsno, goodssummary, goodsname, 
+      title, num, salenum, 
+      listprice, saleprice, goodstypecode, 
+      validitytype, cover, abberviation, 
+      intime, uptime, sort, 
+      status, is_active, is_sue, 
+      is_show_discount, remark1, bookingnotice, 
+      description)
+    values (#{id,jdbcType=INTEGER}, #{ocId,jdbcType=BIGINT}, #{categoryId,jdbcType=INTEGER}, 
+      #{channelId,jdbcType=INTEGER}, #{channelType,jdbcType=TINYINT}, #{bizcode,jdbcType=VARCHAR}, 
+      #{goodsno,jdbcType=VARCHAR}, #{goodssummary,jdbcType=VARCHAR}, #{goodsname,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{num,jdbcType=INTEGER}, #{salenum,jdbcType=INTEGER}, 
+      #{listprice,jdbcType=INTEGER}, #{saleprice,jdbcType=INTEGER}, #{goodstypecode,jdbcType=VARCHAR}, 
+      #{validitytype,jdbcType=TINYINT}, #{cover,jdbcType=VARCHAR}, #{abberviation,jdbcType=VARCHAR}, 
+      #{intime,jdbcType=INTEGER}, #{uptime,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, 
+      #{status,jdbcType=TINYINT}, #{isActive,jdbcType=BIT}, #{isSue,jdbcType=TINYINT}, 
+      #{isShowDiscount,jdbcType=TINYINT}, #{remark1,jdbcType=VARCHAR}, #{bookingnotice,jdbcType=LONGVARCHAR}, 
+      #{description,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.youban.ssm.pojo.GGoodsWithBLOBs">
+    insert into g_goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="ocId != null">
+        oc_id,
+      </if>
+      <if test="categoryId != null">
+        category_id,
+      </if>
+      <if test="channelId != null">
+        channel_id,
+      </if>
+      <if test="channelType != null">
+        channel_type,
+      </if>
+      <if test="bizcode != null">
+        bizcode,
+      </if>
+      <if test="goodsno != null">
+        goodsno,
+      </if>
+      <if test="goodssummary != null">
+        goodssummary,
+      </if>
+      <if test="goodsname != null">
+        goodsname,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="num != null">
+        num,
+      </if>
+      <if test="salenum != null">
+        salenum,
+      </if>
+      <if test="listprice != null">
+        listprice,
+      </if>
+      <if test="saleprice != null">
+        saleprice,
+      </if>
+      <if test="goodstypecode != null">
+        goodstypecode,
+      </if>
+      <if test="validitytype != null">
+        validitytype,
+      </if>
+      <if test="cover != null">
+        cover,
+      </if>
+      <if test="abberviation != null">
+        abberviation,
+      </if>
+      <if test="intime != null">
+        intime,
+      </if>
+      <if test="uptime != null">
+        uptime,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="isActive != null">
+        is_active,
+      </if>
+      <if test="isSue != null">
+        is_sue,
+      </if>
+      <if test="isShowDiscount != null">
+        is_show_discount,
+      </if>
+      <if test="remark1 != null">
+        remark1,
+      </if>
+      <if test="bookingnotice != null">
+        bookingnotice,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ocId != null">
+        #{ocId,jdbcType=BIGINT},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="channelId != null">
+        #{channelId,jdbcType=INTEGER},
+      </if>
+      <if test="channelType != null">
+        #{channelType,jdbcType=TINYINT},
+      </if>
+      <if test="bizcode != null">
+        #{bizcode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsno != null">
+        #{goodsno,jdbcType=VARCHAR},
+      </if>
+      <if test="goodssummary != null">
+        #{goodssummary,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsname != null">
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="salenum != null">
+        #{salenum,jdbcType=INTEGER},
+      </if>
+      <if test="listprice != null">
+        #{listprice,jdbcType=INTEGER},
+      </if>
+      <if test="saleprice != null">
+        #{saleprice,jdbcType=INTEGER},
+      </if>
+      <if test="goodstypecode != null">
+        #{goodstypecode,jdbcType=VARCHAR},
+      </if>
+      <if test="validitytype != null">
+        #{validitytype,jdbcType=TINYINT},
+      </if>
+      <if test="cover != null">
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="abberviation != null">
+        #{abberviation,jdbcType=VARCHAR},
+      </if>
+      <if test="intime != null">
+        #{intime,jdbcType=INTEGER},
+      </if>
+      <if test="uptime != null">
+        #{uptime,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="isActive != null">
+        #{isActive,jdbcType=BIT},
+      </if>
+      <if test="isSue != null">
+        #{isSue,jdbcType=TINYINT},
+      </if>
+      <if test="isShowDiscount != null">
+        #{isShowDiscount,jdbcType=TINYINT},
+      </if>
+      <if test="remark1 != null">
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="bookingnotice != null">
+        #{bookingnotice,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.youban.ssm.pojo.GGoodsExample" resultType="java.lang.Long">
+    select count(*) from g_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update g_goods
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.ocId != null">
+        oc_id = #{record.ocId,jdbcType=BIGINT},
+      </if>
+      <if test="record.categoryId != null">
+        category_id = #{record.categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.channelId != null">
+        channel_id = #{record.channelId,jdbcType=INTEGER},
+      </if>
+      <if test="record.channelType != null">
+        channel_type = #{record.channelType,jdbcType=TINYINT},
+      </if>
+      <if test="record.bizcode != null">
+        bizcode = #{record.bizcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsno != null">
+        goodsno = #{record.goodsno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodssummary != null">
+        goodssummary = #{record.goodssummary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsname != null">
+        goodsname = #{record.goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.num != null">
+        num = #{record.num,jdbcType=INTEGER},
+      </if>
+      <if test="record.salenum != null">
+        salenum = #{record.salenum,jdbcType=INTEGER},
+      </if>
+      <if test="record.listprice != null">
+        listprice = #{record.listprice,jdbcType=INTEGER},
+      </if>
+      <if test="record.saleprice != null">
+        saleprice = #{record.saleprice,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodstypecode != null">
+        goodstypecode = #{record.goodstypecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.validitytype != null">
+        validitytype = #{record.validitytype,jdbcType=TINYINT},
+      </if>
+      <if test="record.cover != null">
+        cover = #{record.cover,jdbcType=VARCHAR},
+      </if>
+      <if test="record.abberviation != null">
+        abberviation = #{record.abberviation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.intime != null">
+        intime = #{record.intime,jdbcType=INTEGER},
+      </if>
+      <if test="record.uptime != null">
+        uptime = #{record.uptime,jdbcType=INTEGER},
+      </if>
+      <if test="record.sort != null">
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.isActive != null">
+        is_active = #{record.isActive,jdbcType=BIT},
+      </if>
+      <if test="record.isSue != null">
+        is_sue = #{record.isSue,jdbcType=TINYINT},
+      </if>
+      <if test="record.isShowDiscount != null">
+        is_show_discount = #{record.isShowDiscount,jdbcType=TINYINT},
+      </if>
+      <if test="record.remark1 != null">
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookingnotice != null">
+        bookingnotice = #{record.bookingnotice,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update g_goods
+    set id = #{record.id,jdbcType=INTEGER},
+      oc_id = #{record.ocId,jdbcType=BIGINT},
+      category_id = #{record.categoryId,jdbcType=INTEGER},
+      channel_id = #{record.channelId,jdbcType=INTEGER},
+      channel_type = #{record.channelType,jdbcType=TINYINT},
+      bizcode = #{record.bizcode,jdbcType=VARCHAR},
+      goodsno = #{record.goodsno,jdbcType=VARCHAR},
+      goodssummary = #{record.goodssummary,jdbcType=VARCHAR},
+      goodsname = #{record.goodsname,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      num = #{record.num,jdbcType=INTEGER},
+      salenum = #{record.salenum,jdbcType=INTEGER},
+      listprice = #{record.listprice,jdbcType=INTEGER},
+      saleprice = #{record.saleprice,jdbcType=INTEGER},
+      goodstypecode = #{record.goodstypecode,jdbcType=VARCHAR},
+      validitytype = #{record.validitytype,jdbcType=TINYINT},
+      cover = #{record.cover,jdbcType=VARCHAR},
+      abberviation = #{record.abberviation,jdbcType=VARCHAR},
+      intime = #{record.intime,jdbcType=INTEGER},
+      uptime = #{record.uptime,jdbcType=INTEGER},
+      sort = #{record.sort,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=TINYINT},
+      is_active = #{record.isActive,jdbcType=BIT},
+      is_sue = #{record.isSue,jdbcType=TINYINT},
+      is_show_discount = #{record.isShowDiscount,jdbcType=TINYINT},
+      remark1 = #{record.remark1,jdbcType=VARCHAR},
+      bookingnotice = #{record.bookingnotice,jdbcType=LONGVARCHAR},
+      description = #{record.description,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update g_goods
+    set id = #{record.id,jdbcType=INTEGER},
+      oc_id = #{record.ocId,jdbcType=BIGINT},
+      category_id = #{record.categoryId,jdbcType=INTEGER},
+      channel_id = #{record.channelId,jdbcType=INTEGER},
+      channel_type = #{record.channelType,jdbcType=TINYINT},
+      bizcode = #{record.bizcode,jdbcType=VARCHAR},
+      goodsno = #{record.goodsno,jdbcType=VARCHAR},
+      goodssummary = #{record.goodssummary,jdbcType=VARCHAR},
+      goodsname = #{record.goodsname,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      num = #{record.num,jdbcType=INTEGER},
+      salenum = #{record.salenum,jdbcType=INTEGER},
+      listprice = #{record.listprice,jdbcType=INTEGER},
+      saleprice = #{record.saleprice,jdbcType=INTEGER},
+      goodstypecode = #{record.goodstypecode,jdbcType=VARCHAR},
+      validitytype = #{record.validitytype,jdbcType=TINYINT},
+      cover = #{record.cover,jdbcType=VARCHAR},
+      abberviation = #{record.abberviation,jdbcType=VARCHAR},
+      intime = #{record.intime,jdbcType=INTEGER},
+      uptime = #{record.uptime,jdbcType=INTEGER},
+      sort = #{record.sort,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=TINYINT},
+      is_active = #{record.isActive,jdbcType=BIT},
+      is_sue = #{record.isSue,jdbcType=TINYINT},
+      is_show_discount = #{record.isShowDiscount,jdbcType=TINYINT},
+      remark1 = #{record.remark1,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.youban.ssm.pojo.GGoodsWithBLOBs">
+    update g_goods
+    <set>
+      <if test="ocId != null">
+        oc_id = #{ocId,jdbcType=BIGINT},
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="channelId != null">
+        channel_id = #{channelId,jdbcType=INTEGER},
+      </if>
+      <if test="channelType != null">
+        channel_type = #{channelType,jdbcType=TINYINT},
+      </if>
+      <if test="bizcode != null">
+        bizcode = #{bizcode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsno != null">
+        goodsno = #{goodsno,jdbcType=VARCHAR},
+      </if>
+      <if test="goodssummary != null">
+        goodssummary = #{goodssummary,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsname != null">
+        goodsname = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="salenum != null">
+        salenum = #{salenum,jdbcType=INTEGER},
+      </if>
+      <if test="listprice != null">
+        listprice = #{listprice,jdbcType=INTEGER},
+      </if>
+      <if test="saleprice != null">
+        saleprice = #{saleprice,jdbcType=INTEGER},
+      </if>
+      <if test="goodstypecode != null">
+        goodstypecode = #{goodstypecode,jdbcType=VARCHAR},
+      </if>
+      <if test="validitytype != null">
+        validitytype = #{validitytype,jdbcType=TINYINT},
+      </if>
+      <if test="cover != null">
+        cover = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="abberviation != null">
+        abberviation = #{abberviation,jdbcType=VARCHAR},
+      </if>
+      <if test="intime != null">
+        intime = #{intime,jdbcType=INTEGER},
+      </if>
+      <if test="uptime != null">
+        uptime = #{uptime,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="isActive != null">
+        is_active = #{isActive,jdbcType=BIT},
+      </if>
+      <if test="isSue != null">
+        is_sue = #{isSue,jdbcType=TINYINT},
+      </if>
+      <if test="isShowDiscount != null">
+        is_show_discount = #{isShowDiscount,jdbcType=TINYINT},
+      </if>
+      <if test="remark1 != null">
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="bookingnotice != null">
+        bookingnotice = #{bookingnotice,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.youban.ssm.pojo.GGoodsWithBLOBs">
+    update g_goods
+    set oc_id = #{ocId,jdbcType=BIGINT},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      channel_id = #{channelId,jdbcType=INTEGER},
+      channel_type = #{channelType,jdbcType=TINYINT},
+      bizcode = #{bizcode,jdbcType=VARCHAR},
+      goodsno = #{goodsno,jdbcType=VARCHAR},
+      goodssummary = #{goodssummary,jdbcType=VARCHAR},
+      goodsname = #{goodsname,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      num = #{num,jdbcType=INTEGER},
+      salenum = #{salenum,jdbcType=INTEGER},
+      listprice = #{listprice,jdbcType=INTEGER},
+      saleprice = #{saleprice,jdbcType=INTEGER},
+      goodstypecode = #{goodstypecode,jdbcType=VARCHAR},
+      validitytype = #{validitytype,jdbcType=TINYINT},
+      cover = #{cover,jdbcType=VARCHAR},
+      abberviation = #{abberviation,jdbcType=VARCHAR},
+      intime = #{intime,jdbcType=INTEGER},
+      uptime = #{uptime,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
+      status = #{status,jdbcType=TINYINT},
+      is_active = #{isActive,jdbcType=BIT},
+      is_sue = #{isSue,jdbcType=TINYINT},
+      is_show_discount = #{isShowDiscount,jdbcType=TINYINT},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      bookingnotice = #{bookingnotice,jdbcType=LONGVARCHAR},
+      description = #{description,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.youban.ssm.pojo.GGoods">
+    update g_goods
+    set oc_id = #{ocId,jdbcType=BIGINT},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      channel_id = #{channelId,jdbcType=INTEGER},
+      channel_type = #{channelType,jdbcType=TINYINT},
+      bizcode = #{bizcode,jdbcType=VARCHAR},
+      goodsno = #{goodsno,jdbcType=VARCHAR},
+      goodssummary = #{goodssummary,jdbcType=VARCHAR},
+      goodsname = #{goodsname,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      num = #{num,jdbcType=INTEGER},
+      salenum = #{salenum,jdbcType=INTEGER},
+      listprice = #{listprice,jdbcType=INTEGER},
+      saleprice = #{saleprice,jdbcType=INTEGER},
+      goodstypecode = #{goodstypecode,jdbcType=VARCHAR},
+      validitytype = #{validitytype,jdbcType=TINYINT},
+      cover = #{cover,jdbcType=VARCHAR},
+      abberviation = #{abberviation,jdbcType=VARCHAR},
+      intime = #{intime,jdbcType=INTEGER},
+      uptime = #{uptime,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
+      status = #{status,jdbcType=TINYINT},
+      is_active = #{isActive,jdbcType=BIT},
+      is_sue = #{isSue,jdbcType=TINYINT},
+      is_show_discount = #{isShowDiscount,jdbcType=TINYINT},
+      remark1 = #{remark1,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

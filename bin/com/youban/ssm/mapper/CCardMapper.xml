@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youban.ssm.mapper.CCardMapper">
+  <resultMap id="BaseResultMap" type="com.youban.ssm.pojo.CCard">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="oc_id" jdbcType="BIGINT" property="ocId" />
+    <result column="card_id" jdbcType="VARCHAR" property="cardId" />
+    <result column="wechat_card_id" jdbcType="VARCHAR" property="wechatCardId" />
+    <result column="card_name" jdbcType="VARCHAR" property="cardName" />
+    <result column="card_status" jdbcType="TINYINT" property="cardStatus" />
+    <result column="card_source" jdbcType="VARCHAR" property="cardSource" />
+    <result column="card_url" jdbcType="VARCHAR" property="cardUrl" />
+    <result column="card_put_type" jdbcType="VARCHAR" property="cardPutType" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="bind_user" jdbcType="TINYINT" property="bindUser" />
+    <result column="inventory" jdbcType="INTEGER" property="inventory" />
+    <result column="give_num" jdbcType="INTEGER" property="giveNum" />
+    <result column="get_limit" jdbcType="INTEGER" property="getLimit" />
+    <result column="get_day_limit" jdbcType="INTEGER" property="getDayLimit" />
+    <result column="sel_goods_type" jdbcType="BIT" property="selGoodsType" />
+    <result column="can_give_friend" jdbcType="TINYINT" property="canGiveFriend" />
+    <result column="can_shared" jdbcType="BIT" property="canShared" />
+    <result column="is_wechat" jdbcType="BIT" property="isWechat" />
+    <result column="status" jdbcType="BIT" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, oc_id, card_id, wechat_card_id, card_name, card_status, card_source, card_url, 
+    card_put_type, description, bind_user, inventory, give_num, get_limit, get_day_limit, 
+    sel_goods_type, can_give_friend, can_shared, is_wechat, status
+  </sql>
+  <select id="selectByExample" parameterType="com.youban.ssm.pojo.CCardExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from c_card
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from c_card
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from c_card
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.youban.ssm.pojo.CCardExample">
+    delete from c_card
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.youban.ssm.pojo.CCard">
+    insert into c_card (id, oc_id, card_id, 
+      wechat_card_id, card_name, card_status, 
+      card_source, card_url, card_put_type, 
+      description, bind_user, inventory, 
+      give_num, get_limit, get_day_limit, 
+      sel_goods_type, can_give_friend, can_shared, 
+      is_wechat, status)
+    values (#{id,jdbcType=INTEGER}, #{ocId,jdbcType=BIGINT}, #{cardId,jdbcType=VARCHAR}, 
+      #{wechatCardId,jdbcType=VARCHAR}, #{cardName,jdbcType=VARCHAR}, #{cardStatus,jdbcType=TINYINT}, 
+      #{cardSource,jdbcType=VARCHAR}, #{cardUrl,jdbcType=VARCHAR}, #{cardPutType,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{bindUser,jdbcType=TINYINT}, #{inventory,jdbcType=INTEGER}, 
+      #{giveNum,jdbcType=INTEGER}, #{getLimit,jdbcType=INTEGER}, #{getDayLimit,jdbcType=INTEGER}, 
+      #{selGoodsType,jdbcType=BIT}, #{canGiveFriend,jdbcType=TINYINT}, #{canShared,jdbcType=BIT}, 
+      #{isWechat,jdbcType=BIT}, #{status,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.youban.ssm.pojo.CCard">
+    insert into c_card
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="ocId != null">
+        oc_id,
+      </if>
+      <if test="cardId != null">
+        card_id,
+      </if>
+      <if test="wechatCardId != null">
+        wechat_card_id,
+      </if>
+      <if test="cardName != null">
+        card_name,
+      </if>
+      <if test="cardStatus != null">
+        card_status,
+      </if>
+      <if test="cardSource != null">
+        card_source,
+      </if>
+      <if test="cardUrl != null">
+        card_url,
+      </if>
+      <if test="cardPutType != null">
+        card_put_type,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="bindUser != null">
+        bind_user,
+      </if>
+      <if test="inventory != null">
+        inventory,
+      </if>
+      <if test="giveNum != null">
+        give_num,
+      </if>
+      <if test="getLimit != null">
+        get_limit,
+      </if>
+      <if test="getDayLimit != null">
+        get_day_limit,
+      </if>
+      <if test="selGoodsType != null">
+        sel_goods_type,
+      </if>
+      <if test="canGiveFriend != null">
+        can_give_friend,
+      </if>
+      <if test="canShared != null">
+        can_shared,
+      </if>
+      <if test="isWechat != null">
+        is_wechat,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ocId != null">
+        #{ocId,jdbcType=BIGINT},
+      </if>
+      <if test="cardId != null">
+        #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatCardId != null">
+        #{wechatCardId,jdbcType=VARCHAR},
+      </if>
+      <if test="cardName != null">
+        #{cardName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardStatus != null">
+        #{cardStatus,jdbcType=TINYINT},
+      </if>
+      <if test="cardSource != null">
+        #{cardSource,jdbcType=VARCHAR},
+      </if>
+      <if test="cardUrl != null">
+        #{cardUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="cardPutType != null">
+        #{cardPutType,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="bindUser != null">
+        #{bindUser,jdbcType=TINYINT},
+      </if>
+      <if test="inventory != null">
+        #{inventory,jdbcType=INTEGER},
+      </if>
+      <if test="giveNum != null">
+        #{giveNum,jdbcType=INTEGER},
+      </if>
+      <if test="getLimit != null">
+        #{getLimit,jdbcType=INTEGER},
+      </if>
+      <if test="getDayLimit != null">
+        #{getDayLimit,jdbcType=INTEGER},
+      </if>
+      <if test="selGoodsType != null">
+        #{selGoodsType,jdbcType=BIT},
+      </if>
+      <if test="canGiveFriend != null">
+        #{canGiveFriend,jdbcType=TINYINT},
+      </if>
+      <if test="canShared != null">
+        #{canShared,jdbcType=BIT},
+      </if>
+      <if test="isWechat != null">
+        #{isWechat,jdbcType=BIT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.youban.ssm.pojo.CCardExample" resultType="java.lang.Long">
+    select count(*) from c_card
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update c_card
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.ocId != null">
+        oc_id = #{record.ocId,jdbcType=BIGINT},
+      </if>
+      <if test="record.cardId != null">
+        card_id = #{record.cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wechatCardId != null">
+        wechat_card_id = #{record.wechatCardId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardName != null">
+        card_name = #{record.cardName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardStatus != null">
+        card_status = #{record.cardStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.cardSource != null">
+        card_source = #{record.cardSource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardUrl != null">
+        card_url = #{record.cardUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardPutType != null">
+        card_put_type = #{record.cardPutType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bindUser != null">
+        bind_user = #{record.bindUser,jdbcType=TINYINT},
+      </if>
+      <if test="record.inventory != null">
+        inventory = #{record.inventory,jdbcType=INTEGER},
+      </if>
+      <if test="record.giveNum != null">
+        give_num = #{record.giveNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.getLimit != null">
+        get_limit = #{record.getLimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.getDayLimit != null">
+        get_day_limit = #{record.getDayLimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.selGoodsType != null">
+        sel_goods_type = #{record.selGoodsType,jdbcType=BIT},
+      </if>
+      <if test="record.canGiveFriend != null">
+        can_give_friend = #{record.canGiveFriend,jdbcType=TINYINT},
+      </if>
+      <if test="record.canShared != null">
+        can_shared = #{record.canShared,jdbcType=BIT},
+      </if>
+      <if test="record.isWechat != null">
+        is_wechat = #{record.isWechat,jdbcType=BIT},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update c_card
+    set id = #{record.id,jdbcType=INTEGER},
+      oc_id = #{record.ocId,jdbcType=BIGINT},
+      card_id = #{record.cardId,jdbcType=VARCHAR},
+      wechat_card_id = #{record.wechatCardId,jdbcType=VARCHAR},
+      card_name = #{record.cardName,jdbcType=VARCHAR},
+      card_status = #{record.cardStatus,jdbcType=TINYINT},
+      card_source = #{record.cardSource,jdbcType=VARCHAR},
+      card_url = #{record.cardUrl,jdbcType=VARCHAR},
+      card_put_type = #{record.cardPutType,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      bind_user = #{record.bindUser,jdbcType=TINYINT},
+      inventory = #{record.inventory,jdbcType=INTEGER},
+      give_num = #{record.giveNum,jdbcType=INTEGER},
+      get_limit = #{record.getLimit,jdbcType=INTEGER},
+      get_day_limit = #{record.getDayLimit,jdbcType=INTEGER},
+      sel_goods_type = #{record.selGoodsType,jdbcType=BIT},
+      can_give_friend = #{record.canGiveFriend,jdbcType=TINYINT},
+      can_shared = #{record.canShared,jdbcType=BIT},
+      is_wechat = #{record.isWechat,jdbcType=BIT},
+      status = #{record.status,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.youban.ssm.pojo.CCard">
+    update c_card
+    <set>
+      <if test="ocId != null">
+        oc_id = #{ocId,jdbcType=BIGINT},
+      </if>
+      <if test="cardId != null">
+        card_id = #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatCardId != null">
+        wechat_card_id = #{wechatCardId,jdbcType=VARCHAR},
+      </if>
+      <if test="cardName != null">
+        card_name = #{cardName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardStatus != null">
+        card_status = #{cardStatus,jdbcType=TINYINT},
+      </if>
+      <if test="cardSource != null">
+        card_source = #{cardSource,jdbcType=VARCHAR},
+      </if>
+      <if test="cardUrl != null">
+        card_url = #{cardUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="cardPutType != null">
+        card_put_type = #{cardPutType,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="bindUser != null">
+        bind_user = #{bindUser,jdbcType=TINYINT},
+      </if>
+      <if test="inventory != null">
+        inventory = #{inventory,jdbcType=INTEGER},
+      </if>
+      <if test="giveNum != null">
+        give_num = #{giveNum,jdbcType=INTEGER},
+      </if>
+      <if test="getLimit != null">
+        get_limit = #{getLimit,jdbcType=INTEGER},
+      </if>
+      <if test="getDayLimit != null">
+        get_day_limit = #{getDayLimit,jdbcType=INTEGER},
+      </if>
+      <if test="selGoodsType != null">
+        sel_goods_type = #{selGoodsType,jdbcType=BIT},
+      </if>
+      <if test="canGiveFriend != null">
+        can_give_friend = #{canGiveFriend,jdbcType=TINYINT},
+      </if>
+      <if test="canShared != null">
+        can_shared = #{canShared,jdbcType=BIT},
+      </if>
+      <if test="isWechat != null">
+        is_wechat = #{isWechat,jdbcType=BIT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.youban.ssm.pojo.CCard">
+    update c_card
+    set oc_id = #{ocId,jdbcType=BIGINT},
+      card_id = #{cardId,jdbcType=VARCHAR},
+      wechat_card_id = #{wechatCardId,jdbcType=VARCHAR},
+      card_name = #{cardName,jdbcType=VARCHAR},
+      card_status = #{cardStatus,jdbcType=TINYINT},
+      card_source = #{cardSource,jdbcType=VARCHAR},
+      card_url = #{cardUrl,jdbcType=VARCHAR},
+      card_put_type = #{cardPutType,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      bind_user = #{bindUser,jdbcType=TINYINT},
+      inventory = #{inventory,jdbcType=INTEGER},
+      give_num = #{giveNum,jdbcType=INTEGER},
+      get_limit = #{getLimit,jdbcType=INTEGER},
+      get_day_limit = #{getDayLimit,jdbcType=INTEGER},
+      sel_goods_type = #{selGoodsType,jdbcType=BIT},
+      can_give_friend = #{canGiveFriend,jdbcType=TINYINT},
+      can_shared = #{canShared,jdbcType=BIT},
+      is_wechat = #{isWechat,jdbcType=BIT},
+      status = #{status,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

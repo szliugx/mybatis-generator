@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youban.ssm.mapper.InstOcMapper">
+  <resultMap id="BaseResultMap" type="com.youban.ssm.pojo.InstOc">
+    <id column="oc_id" jdbcType="BIGINT" property="ocId" />
+    <result column="oc_name" jdbcType="VARCHAR" property="ocName" />
+    <result column="intime" jdbcType="INTEGER" property="intime" />
+    <result column="uptime" jdbcType="INTEGER" property="uptime" />
+    <result column="is_test" jdbcType="BIT" property="isTest" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    oc_id, oc_name, intime, uptime, is_test
+  </sql>
+  <select id="selectByExample" parameterType="com.youban.ssm.pojo.InstOcExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from inst_oc
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from inst_oc
+    where oc_id = #{ocId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from inst_oc
+    where oc_id = #{ocId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.youban.ssm.pojo.InstOcExample">
+    delete from inst_oc
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.youban.ssm.pojo.InstOc">
+    insert into inst_oc (oc_id, oc_name, intime, 
+      uptime, is_test)
+    values (#{ocId,jdbcType=BIGINT}, #{ocName,jdbcType=VARCHAR}, #{intime,jdbcType=INTEGER}, 
+      #{uptime,jdbcType=INTEGER}, #{isTest,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.youban.ssm.pojo.InstOc">
+    insert into inst_oc
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ocId != null">
+        oc_id,
+      </if>
+      <if test="ocName != null">
+        oc_name,
+      </if>
+      <if test="intime != null">
+        intime,
+      </if>
+      <if test="uptime != null">
+        uptime,
+      </if>
+      <if test="isTest != null">
+        is_test,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ocId != null">
+        #{ocId,jdbcType=BIGINT},
+      </if>
+      <if test="ocName != null">
+        #{ocName,jdbcType=VARCHAR},
+      </if>
+      <if test="intime != null">
+        #{intime,jdbcType=INTEGER},
+      </if>
+      <if test="uptime != null">
+        #{uptime,jdbcType=INTEGER},
+      </if>
+      <if test="isTest != null">
+        #{isTest,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.youban.ssm.pojo.InstOcExample" resultType="java.lang.Long">
+    select count(*) from inst_oc
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update inst_oc
+    <set>
+      <if test="record.ocId != null">
+        oc_id = #{record.ocId,jdbcType=BIGINT},
+      </if>
+      <if test="record.ocName != null">
+        oc_name = #{record.ocName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.intime != null">
+        intime = #{record.intime,jdbcType=INTEGER},
+      </if>
+      <if test="record.uptime != null">
+        uptime = #{record.uptime,jdbcType=INTEGER},
+      </if>
+      <if test="record.isTest != null">
+        is_test = #{record.isTest,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update inst_oc
+    set oc_id = #{record.ocId,jdbcType=BIGINT},
+      oc_name = #{record.ocName,jdbcType=VARCHAR},
+      intime = #{record.intime,jdbcType=INTEGER},
+      uptime = #{record.uptime,jdbcType=INTEGER},
+      is_test = #{record.isTest,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.youban.ssm.pojo.InstOc">
+    update inst_oc
+    <set>
+      <if test="ocName != null">
+        oc_name = #{ocName,jdbcType=VARCHAR},
+      </if>
+      <if test="intime != null">
+        intime = #{intime,jdbcType=INTEGER},
+      </if>
+      <if test="uptime != null">
+        uptime = #{uptime,jdbcType=INTEGER},
+      </if>
+      <if test="isTest != null">
+        is_test = #{isTest,jdbcType=BIT},
+      </if>
+    </set>
+    where oc_id = #{ocId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.youban.ssm.pojo.InstOc">
+    update inst_oc
+    set oc_name = #{ocName,jdbcType=VARCHAR},
+      intime = #{intime,jdbcType=INTEGER},
+      uptime = #{uptime,jdbcType=INTEGER},
+      is_test = #{isTest,jdbcType=BIT}
+    where oc_id = #{ocId,jdbcType=BIGINT}
+  </update>
+</mapper>
